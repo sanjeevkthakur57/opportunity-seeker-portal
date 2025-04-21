@@ -1,10 +1,13 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { InternshipProps } from "@/components/InternshipCard";
 import { Badge } from "@/components/ui/badge";
 import { CalendarIcon, Briefcase, Search, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import ApplyForm from "@/components/ApplyForm";
+import { toast } from "@/components/ui/sonner";
 
 interface InternshipDetailProps {
   internship: InternshipProps;
@@ -21,6 +24,42 @@ const InternshipDetail = ({ internship }: InternshipDetailProps) => {
     applicationDeadline,
     logo,
   } = internship;
+
+  const [isApplyFormOpen, setIsApplyFormOpen] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const navigate = useNavigate();
+
+  const handleApplyClick = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    
+    if (!isLoggedIn) {
+      toast.error("Please login to apply for internships");
+      navigate("/login");
+      return;
+    }
+    
+    setIsApplyFormOpen(true);
+  };
+
+  const handleSaveInternship = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    
+    if (!isLoggedIn) {
+      toast.error("Please login to save internships");
+      navigate("/login");
+      return;
+    }
+    
+    setIsSaved(!isSaved);
+    
+    if (!isSaved) {
+      // Here you would call your API to save the internship
+      toast.success("Internship saved to your profile");
+    } else {
+      // Here you would call your API to unsave the internship
+      toast.success("Internship removed from saved items");
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -126,8 +165,14 @@ const InternshipDetail = ({ internship }: InternshipDetailProps) => {
               <p className="text-gray-600 mb-6">
                 Application deadline: {applicationDeadline}
               </p>
-              <Button className="w-full mb-3">Apply Now</Button>
-              <Button variant="outline" className="w-full">Save Internship</Button>
+              <Button className="w-full mb-3" onClick={handleApplyClick}>Apply Now</Button>
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={handleSaveInternship}
+              >
+                {isSaved ? "Saved" : "Save Internship"}
+              </Button>
               
               <div className="mt-6 pt-6 border-t">
                 <h4 className="font-medium mb-2">About {company}</h4>
@@ -142,6 +187,12 @@ const InternshipDetail = ({ internship }: InternshipDetailProps) => {
           </Card>
         </div>
       </div>
+      
+      <ApplyForm 
+        internship={internship} 
+        isOpen={isApplyFormOpen} 
+        onClose={() => setIsApplyFormOpen(false)} 
+      />
     </div>
   );
 };

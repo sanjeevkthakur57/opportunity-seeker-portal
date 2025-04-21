@@ -1,20 +1,43 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import InternshipCard, { InternshipProps } from "@/components/InternshipCard";
 import InternshipFilters from "@/components/InternshipFilters";
 import { allInternships } from "@/data/internships";
 import { Button } from "@/components/ui/button";
+import { Loader } from "lucide-react";
 
 const Internships = () => {
-  const [filteredInternships, setFilteredInternships] = useState<InternshipProps[]>(allInternships);
   const [filters, setFilters] = useState({});
+  const [displayCount, setDisplayCount] = useState(4);
+  const [isLoading, setIsLoading] = useState(false);
+  const [filteredInternships, setFilteredInternships] = useState<InternshipProps[]>([]);
+  
+  // Initialize with first batch of internships
+  useEffect(() => {
+    setFilteredInternships(allInternships.slice(0, displayCount));
+  }, [displayCount]);
 
   const handleFilter = (newFilters: any) => {
     setFilters(newFilters);
     // In a real application, you would apply these filters to the data
     // For now, we'll just use the full list
-    setFilteredInternships(allInternships);
+    setFilteredInternships(allInternships.slice(0, displayCount));
+  };
+  
+  const handleLoadMore = async () => {
+    setIsLoading(true);
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Increase the display count to show more internships
+    setDisplayCount(prevCount => {
+      const newCount = prevCount + 4;
+      return Math.min(newCount, allInternships.length);
+    });
+    
+    setIsLoading(false);
   };
 
   return (
@@ -36,7 +59,7 @@ const Internships = () => {
             <div className="lg:col-span-3">
               <div className="bg-white p-4 rounded-lg shadow-sm border mb-6 flex justify-between items-center">
                 <div className="text-gray-600">
-                  Showing <span className="font-medium">{filteredInternships.length}</span> internships
+                  Showing <span className="font-medium">{filteredInternships.length}</span> of {allInternships.length} internships
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">
@@ -63,9 +86,22 @@ const Internships = () => {
                 </div>
               )}
 
-              {filteredInternships.length > 0 && (
+              {filteredInternships.length > 0 && filteredInternships.length < allInternships.length && (
                 <div className="mt-8 flex justify-center">
-                  <Button variant="outline">Load More</Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={handleLoadMore}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader className="h-4 w-4 animate-spin mr-2" />
+                        Loading...
+                      </>
+                    ) : (
+                      "Load More"
+                    )}
+                  </Button>
                 </div>
               )}
             </div>
