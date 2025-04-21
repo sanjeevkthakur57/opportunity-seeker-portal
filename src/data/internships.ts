@@ -1,0 +1,156 @@
+
+import { InternshipProps } from "@/components/InternshipCard";
+
+export const featuredInternships: InternshipProps[] = [
+  {
+    id: "1",
+    title: "Frontend Developer Intern",
+    company: "TechCorp",
+    location: "New York, NY",
+    stipend: "$1000/month",
+    duration: "3 months",
+    type: "Remote",
+    applicationDeadline: "May 30, 2025",
+  },
+  {
+    id: "2",
+    title: "UI/UX Design Intern",
+    company: "Creative Solutions",
+    location: "San Francisco, CA",
+    stipend: "$800/month",
+    duration: "6 months",
+    type: "Hybrid",
+    applicationDeadline: "May 25, 2025",
+  },
+  {
+    id: "3",
+    title: "Marketing Intern",
+    company: "GrowthHub",
+    location: "Boston, MA",
+    stipend: "$750/month",
+    duration: "2 months",
+    type: "In-office",
+    applicationDeadline: "June 15, 2025",
+  },
+  {
+    id: "4",
+    title: "Data Analyst Intern",
+    company: "DataMasters",
+    location: "Chicago, IL",
+    stipend: "$1200/month",
+    duration: "4 months",
+    type: "Remote",
+    applicationDeadline: "May 31, 2025",
+  }
+];
+
+export const allInternships: InternshipProps[] = [
+  ...featuredInternships,
+  {
+    id: "5",
+    title: "Backend Developer Intern",
+    company: "ServerStack",
+    location: "Austin, TX",
+    stipend: "$1100/month",
+    duration: "3 months",
+    type: "Remote",
+    applicationDeadline: "June 10, 2025",
+  },
+  {
+    id: "6",
+    title: "Content Writing Intern",
+    company: "WordCraft",
+    location: "Seattle, WA",
+    stipend: "$600/month",
+    duration: "3 months",
+    type: "Hybrid",
+    applicationDeadline: "June 5, 2025",
+  },
+  {
+    id: "7",
+    title: "Social Media Intern",
+    company: "SocialBoost",
+    location: "Miami, FL",
+    stipend: "$700/month",
+    duration: "2 months",
+    type: "Remote",
+    applicationDeadline: "June 20, 2025",
+  },
+  {
+    id: "8",
+    title: "Product Management Intern",
+    company: "ProductLabs",
+    location: "Denver, CO",
+    stipend: "$1000/month",
+    duration: "6 months",
+    type: "In-office",
+    applicationDeadline: "May 29, 2025",
+  },
+  {
+    id: "9",
+    title: "Graphic Design Intern",
+    company: "VisualArts",
+    location: "Los Angeles, CA",
+    stipend: "$850/month",
+    duration: "3 months",
+    type: "Hybrid",
+    applicationDeadline: "June 15, 2025",
+  },
+  {
+    id: "10",
+    title: "HR Intern",
+    company: "PeopleFirst",
+    location: "Atlanta, GA",
+    stipend: "$700/month",
+    duration: "4 months",
+    type: "In-office",
+    applicationDeadline: "June 1, 2025",
+  },
+  {
+    id: "11",
+    title: "Customer Support Intern",
+    company: "HelpDesk",
+    location: "Philadelphia, PA",
+    stipend: "$800/month",
+    duration: "3 months",
+    type: "Remote",
+    applicationDeadline: "June 10, 2025",
+  },
+  {
+    id: "12",
+    title: "Digital Marketing Intern",
+    company: "ClickConvert",
+    location: "Dallas, TX",
+    stipend: "$900/month",
+    duration: "5 months",
+    type: "Hybrid",
+    applicationDeadline: "June 5, 2025",
+  }
+];
+
+export const categories = [
+  "Software Development",
+  "Design",
+  "Marketing",
+  "Data Science",
+  "Content Writing",
+  "Business Development",
+  "Human Resources",
+  "Product Management",
+  "Finance",
+  "Customer Support"
+];
+
+export const locations = [
+  "Remote",
+  "New York, NY",
+  "San Francisco, CA",
+  "Boston, MA",
+  "Chicago, IL",
+  "Austin, TX",
+  "Seattle, WA",
+  "Miami, FL",
+  "Denver, CO",
+  "Los Angeles, CA",
+  "Atlanta, GA"
+];
